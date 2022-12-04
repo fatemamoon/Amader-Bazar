@@ -1,0 +1,193 @@
+﻿@model IEnumerable<AmaderBazar.Models.Entities.CartProduct>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Cart</title>
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/site.css" rel="stylesheet" />
+
+    <style>
+        #cart-block {
+            max-width: 1000px;
+            min-width: 1000px;
+            max-height: 450px;
+            min-height: 450px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+        .alert {
+            position: fixed;
+            display: none;
+            padding: 20px;
+            background-color: #f44336;
+            color: white;
+            max-width: 350px;
+            width: 50%;
+            opacity: 1;
+            transition: opacity .6s;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            border-radius: 15px;
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home/About">AmaderBazar</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Buyer/Home">Home</a></li>
+                    <li><a href="/Buyer/Cart">My Cart</a></li>
+                    <li><a href="/Buyer/OrderHistory">Order History</a></li>
+                    <li><a href="/Buyer/UProfile">Profile</a></li>
+                    <li><a href="/Home/Logout">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert" id="a1">
+        <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+        <strong>Empty Cart!</strong> Add something to make a order.!
+    </div>
+
+    <div> <h4 style="text-align: center; color: darkslateblue"><b>My Cart</b></h4><hr /></div>
+   
+
+    <div id="cart-block" style="max-height: 440px; width: 1150px; overflow-y: scroll; border: 2px solid black;">
+
+        @if (Model != null)
+        {
+            <div>
+                <table class="table table-hover">
+                    <tr class="active">
+                        <th>
+                            @Html.DisplayNameFor(model => model.PID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Qty)
+                        </th>
+                        <th></th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr class="info">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Qty)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("UpdateCart","Buyer", new {@id = item.PID, @Qty = 1} )" class="btn btn-default"><b>+</b></a>
+                                <a href="@Url.Action("UpdateCart","Buyer", new {@id = item.PID, @Qty = -1} )" class="btn btn-default"><b>-</b></a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                <a href="/Buyer/DeleteFromCart/@item.PID" class="btn btn-danger"><b>X</b></a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+        }
+        else
+        {
+            <div>
+                <i>Empty cart. To add items</i>  <a href="/Buyer/Home" class="btn-link">Click here</a>
+            </div>
+
+        }
+    </div>
+
+    <div style="position: absolute; margin-top: 5px; margin-left: 930px">
+
+        @if (Model != null)
+        {
+            <div style="background: black; color: white;">
+                Total Price: @Model.Select(i => i.Price).Sum() Tk. <br />
+            </div>
+        }
+        else
+        {
+
+            <div style="background: black; color: white;">
+                Total Price: 00.00 Tk. <br />
+            </div>
+        }
+    </div>
+    <br /><br />
+    <div style="position: absolute; margin-left: 900px">
+        <a href="@Url.Action("PlaceOrder", "Buyer")" class="btn btn-primary" style="float:right;" onclick="return checkCart()">Place order</a>
+        <a href="@Url.Action("CancelOrder", "Buyer")" class="btn btn-danger" style="float:right;">Cancel</a>
+        <br />
+    </div>
+
+    @if(Session["cart"] == null)
+    {
+        <script>
+            function checkCart() {
+                alertMessage();
+                return false;
+            }
+        </script>
+    }
+
+
+    <script>
+        
+        function alertMessage() {
+            var div = document.getElementById("a1");
+            div.style.opacity = 1;
+            div.style.display = "block";
+            setTimeout(function () {
+                div.style.display = "none";
+            }, 8000);
+        }
+    </script>
+    <br />
+</body>
+</html>

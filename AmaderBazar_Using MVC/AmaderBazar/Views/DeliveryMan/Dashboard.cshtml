@@ -1,0 +1,173 @@
+﻿@model AmaderBazar.Models.DeliveryManBind
+@{
+    ViewBag.Title = "Dash";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style>
+    .table-block {
+        border: 1px solid black;
+        background-color: rosybrown;
+        overflow-y: scroll;
+        max-width: 6500px;
+        min-width: 650px;
+        max-height: 400px;
+        min-height: 400px;
+    }
+
+    .table-block1 {
+        border: 1px solid black;
+        background-color: #E98975;
+        overflow-y: scroll;
+        max-width: 850px;
+        min-width: 650px;
+        max-height: 400px;
+        min-height: 400px;
+    }
+
+    .top-blocks {
+        border: 2px solid black;
+        border-radius: 6px;
+        padding: 3px;
+        backgroud-color: #A7F2FE;
+    }
+</style>
+
+
+
+<div>
+    <div style="text-align: center">
+        <h3>Dashboard</h3>
+    </div>
+    <hr />
+    <div style="text-align: center">
+        @if (Model.UserInfo.Balance > 0)
+        {
+            <b class="top-blocks" style="margin-right: 10px">*Balance: <span style="color: orangered">@Model.UserInfo.Balance TK</span></b>
+        }
+        else
+        {
+            <b class="top-blocks" style="margin-right: 10px">*Balance: <span style="color: mediumpurple">0.00 TK</span></b>
+        }
+
+
+
+        <span style="font-size: 25px">|</span>
+
+
+
+
+        <span style="font-size: 25px; margin-left: 10px">|</span>
+
+
+
+        <b class="top-blocks" style="margin-left: 10px">*Number Of Delivered Orders: <span style="color: darkorange">@Model.UserInfo.NumOfOrders </span></b>
+
+
+
+        <span style="font-size: 25px; margin-left: 10px">|</span>
+
+
+
+
+    </div>
+    <hr />
+    <div style="display: inline-flex; align-content: center">
+        <div style="float: left">
+            <h5 style="text-align: center"><b>Order Requests</b></h5>
+            <div class="table-block" style="margin-right: 5px">
+                @if (Model.Processing.Transactions.Count() > 0)
+                {
+                    <table class="table table-hover">
+                        <tr style="background-color: dodgerblue; color: white">
+                            <th>#</th>
+                            <th>Order Detials</th>
+                            <th>Total Amount</th>
+                            <th>Order Time</th>
+                            <th>Action</th>
+                        </tr>
+                        @for (int i = 0; i < Model.Processing.Transactions.Count(); i++)
+                        {
+                            if (Model.Processing.Transactions[i].DMID == Session["UID"].ToString())
+                            {
+                                <tr style="background-color: gainsboro;">
+                                    <td>#</td>
+                                    <td>@Model.Processing.Detials[i].ItemDetials</td>
+                                    <td>@Model.Processing.Transactions[i].TAmount</td>
+                                    <td>@Model.Processing.Transactions[i].TDate</td>
+                                    <td>
+                                        <a href="/DeliveryMan/Delivered/@Model.Processing.Transactions[i].TID" class="btn btn-success">Delivered</a>
+                                        <a href="/DeliveryMan/Cancel/@Model.Processing.Transactions[i].TID" class="btn btn-danger">Cancel</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+
+
+                        @for (int i = 0; i < Model.Processing.Transactions.Count(); i++)
+                        {
+                            if (Model.Processing.Transactions[i].DMID == null)
+                            {
+                                <tr style="background-color: gainsboro;">
+                                    <td>#</td>
+                                    <td>@Model.Processing.Detials[i].ItemDetials</td>
+                                    <td>@Model.Processing.Transactions[i].TAmount</td>
+                                    <td>@Model.Processing.Transactions[i].TDate</td>
+                                    <td>
+                                        <a href="/DeliveryMan/Active/@Model.Processing.Transactions[i].TID" class="btn btn-primary">Activate</a>
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                    </table>
+                }
+                else
+                {
+                    <span><i>**No available order.</i></span>
+                }
+            </div>
+        </div>
+
+
+
+        <div>
+            <h5 style="text-align: center"><b>Order Delivered</b></h5>
+            <div class="table-block1" style="margin-left: 5px">
+                @if (Model.Delivered.Transactions.Count() > 0)
+                {
+                    <table class="table table-hover">
+                        <tr style="background-color: darkgreen; color: white">
+                            <th>#</th>
+                            <th>Order Detials</th>
+                            <th>Total Amount</th>
+                            <th>Order Time</th>
+                            <th>Action</th>
+                        </tr>
+                        @for (int i = 0; i < Model.Delivered.Transactions.Count(); i++)
+                        {
+                            <tr>
+                                <td>#</td>
+                                <td>@Model.Delivered.Detials[i].ItemDetials</td>
+                                <td>@Model.Delivered.Transactions[i].TAmount</td>
+                                <td>@Model.Delivered.Transactions[i].TDate</td>
+                                <td style="color: red"><i>Delivered*</i></td>
+                            </tr>
+                        }
+                    </table>
+                }
+                else
+                {
+                    <span><i>**No delivered order.</i></span>
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>

@@ -1,0 +1,65 @@
+﻿@model AmaderBazar.BusinessModel.EditProfile
+
+@{
+    ViewBag.Title = "EditProfile";
+}
+<center style="font-family: Cambria">
+    <h2><b>@ViewBag.UserDetails.AccType Profile</b></h2>
+</center>
+<div>
+
+    <hr />
+    <form action="/Admin/EditProfile" method="post">
+        <table class="table table-bordered" style="font-family:Cambria">
+
+            <tr>
+                <th>User ID</th>
+                <td>
+                    <input autocomplete="off" class="form-control valid" data-val="true" value="@ViewBag.UserDetails.UID" id="UID" name="UID" placeholder="UID" type="text" readonly />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="UID" data-valmsg-replace="true"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Name</th>
+                <td>
+                    <input class="form-control text-box single-line" id="Name" name="Name" type="text" value="@ViewBag.UserDetails.Name" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Email</th>
+                <td>
+                    <input class="form-control text-box single-line" id="Email" name="Email" type="text" value="@ViewBag.UserDetails.Email" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Address</th>
+                <td>
+                    <input class="form-control text-box single-line" id="Address" name="Address" type="text" value="@ViewBag.UserDetails.Address" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Contact</th>
+                <td>
+                    <input class="form-control text-box single-line" id="Contact" name="Contact" type="text" value="@ViewBag.UserDetails.Contact" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="Contact" data-valmsg-replace="true"></span>
+                </td>
+            </tr>
+
+
+
+        </table>
+        <center>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" style="inline-size: 100px"/>
+                <a href="/Admin/UProfile" class="btn btn-danger" style="inline-size: 100px">Discard</a>
+            </div>
+        </center>
+    </form>
+</div>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="062fb2f4d9ba4e41ad4d4e93c4291651" Name="Diagram1">
+        <EntityTypeShape EntityType="AmaderbazarModel.Buyer" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AmaderbazarModel.Category" Width="1.5" PointX="3.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AmaderbazarModel.CouponCheck" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AmaderbazarModel.Coupon" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AmaderbazarModel.Delivery" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AmaderbazarModel.Product" Width="1.5" PointX="6" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AmaderbazarModel.Token" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AmaderbazarModel.Transaction" Width="1.5" PointX="3" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AmaderbazarModel.UserID" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AmaderbazarModel.User" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="AmaderbazarModel.FK_Buyers_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AmaderbazarModel.FK_Products_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="AmaderbazarModel.FK_Deliveries_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AmaderbazarModel.FK_Products_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AmaderbazarModel.FK_Tokens_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AmaderbazarModel.FK_Transactions_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

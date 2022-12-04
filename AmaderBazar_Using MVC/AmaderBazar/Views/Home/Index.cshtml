@@ -1,0 +1,74 @@
+﻿@model AmaderBazar.BusinessModel.LoginValidation
+
+@{ViewBag.Title = "Index";}
+<div class="">
+    <div class="alert" id="a1">
+        <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+        <center><strong>Login Failed!</strong><label id="error" value=""></label></center>
+    </div>
+    <center>
+        <h2><b><span style="color:blue;">AmaderBazar</span></b></h2>
+       
+
+        <br />
+
+        <p class="lead" style="font-size:25px">Sign in with your User ID</p>
+
+        <form action="/Home/Index" method="post">
+
+            <div class="form-group">
+                <input autocomplete="off" class="form-control valid" data-val="true" value="" id="UID" name="UID" placeholder="User ID" type="text">
+                <span class="field-validation-valid" data-valmsg-for="UID" data-valmsg-replace="true"></span>
+                @Html.ValidationMessageFor(m => m.UID, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <input class="form-control valid" data-val="true" value="" id="Password" name="Password" placeholder="Password" type="password">
+                <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+
+            @if (Session["ErrMessage"] != null)
+            {
+                <script>
+                    function check()
+                    {
+
+                        var err = "@Session["ErrMessage"].ToString()";
+                        document.getElementById("error").innerHTML = err;
+                        alertMessage();
+
+
+                    }
+
+                </script>
+
+            }
+            else
+            {
+                <script>function check() { }</script>
+            }
+
+            <script>
+
+                function alertMessage() {
+                    var div = document.getElementById("a1");
+                    div.style.opacity = 1;
+                    div.style.display = "block";
+                    setTimeout(function () {
+                        div.style.display = "none";
+                    }, 8000);
+                }
+            </script>
+
+            <div style="inline-size: 75px">
+                <input type="submit" class="btn btn-block btn-primary" value="Login">
+            </div>
+        </form>
+        <br />
+        <div class="form-group">
+            <p class="lead" style="font-size:15px; font-family:Cambria; "><b>Don't have an account? @Html.ActionLink("Register", "Registration", "Home") </b></p>
+        </div>
+    </center>
+</div>
+

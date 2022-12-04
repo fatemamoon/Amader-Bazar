@@ -1,0 +1,216 @@
+﻿@model AmaderBazar.Models.BuyerHomeBind
+@{
+    Layout = null;
+}
+@Scripts.Render("~/bundles/jquery")
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Home - Buyer</title>
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/site.css" rel="stylesheet" />
+
+    <style>
+        #product {
+            display: inline-flex;
+            background-color: whitesmoke;
+            color: black;
+            margin: 10px;
+            height: 160px;
+            width: 240px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 30px grey;
+        }
+
+            #product:hover {
+                cursor: pointer;
+                box-shadow: 5px 5px 30px #A4B33F;
+            }
+
+        #body-block {
+            display: inline-flex;
+            background-color: #E0E0E0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #category-block {
+            margin: 5px;
+            margin-bottom: 15px;
+            min-width: 320px;
+            max-width: 320px;
+        }
+
+        #product-block {
+            overflow-y: scroll;
+            min-width: 1205px;
+            max-width: 1205px;
+            min-height: 450px;
+            border: 2px solid white;
+        }
+
+        #hr1 {
+            border: 0;
+            height: 3px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(9, 84, 132), rgba(0, 0, 0, 0));
+        }
+
+        #full-block {
+            width: 100%;
+            height: 540px;
+        }
+
+        #search-bar {
+            height: 40px;
+            width: 400px;
+            max-width: 400px;
+            max-height: 40px;
+            margin-bottom: 10px;
+            display: inline-flex;
+        }
+
+            #search-bar:focus {
+                box-shadow: 0 0 10px #719ECE;
+            }
+    </style>
+
+</head>
+<body>
+    <div>
+        <div class="container">
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/Home/About">AmaderBazar</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/Buyer/Home">Home</a></li>
+                            <li><a href="/Buyer/Cart">My Cart</a></li>
+                            <li><a href="/Buyer/OrderHistory">Order History</a></li>
+                            <li><a href="/Buyer/UProfile">Profile</a></li>
+                            <li><a href="/Home/Logout">Log Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+
+            <div id="full-block">
+                <div id="top-block" style="background-color: #E0E0E0;">
+                    <div style=" display: inline-flex; width: 100%; text-align: center">
+                        <div>
+                          
+
+                        </div>
+
+                        <div style="margin-left:280px; margin-top: 25px">
+                            <form name="search-form" method="post" action="/Buyer/SearchByProduct">
+                                <span style="font-size: 25px; text-align:center">Search Products:</span>
+                                <input class="center-block" type="search" placeholder="Type a product name" id="search-bar" name="search" value="@Model.Search" />
+                                <input type="submit" value="Search" class="btn btn-primary" />
+                                <a href="/Buyer/Refresh" class="btn btn-default">Refresh</a>
+                            </form>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div id="body-block">
+
+                    <div id="category-block">
+                        <h4 style="text-align: center; background-color: white; border-radius: 20px">Categories</h4>
+                        <hr id="hr1" />
+                        <div class="list-group">
+                            <a href="@Url.Action("Refresh", "Buyer")" class="list-group-item d-flex justify-content-between align-items-center">
+                                All
+                                <span class="badge badge-primary badge-pill">@Model.TotalProducts</span>
+                            </a>
+                            @if (Model.Categories.Count() != 0)
+                            {
+                                foreach (var category in Model.Categories)
+                                {
+                                    <a href="@Url.Action("SearchByCategory", "Buyer", new { @search = category.CatName })" class="list-group-item d-flex justify-content-between align-items-center">
+                                        @category.CatName
+                                        <span class="badge badge-primary badge-pill">@category.Items</span>
+                                    </a>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 style="text-align: center; width: 100px; background-color: white; border-radius: 15px; margin-left: 570px;">Products</h4>
+                        <hr />
+                        @if (Session["Filter"].ToString() == "Name")
+                        {
+                            <div class="input-group mb-3" style="margin-left: 1050px; display: inline-flex">
+                                <form action="@Url.Action("Decide", "Buyer")">
+                                    Filter by: <select class="custom-select" id="inputGroupSelect02" name="Filter" onchange="this.form.submit();" onload="return select(@Model.Filter);">
+                                        <option value="Name" selected>Name</option>
+                                        <option value="Price">Price</option>
+                                    </select>
+                                </form>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="input-group mb-3" style="margin-left: 1050px; display: inline-flex">
+                                <form action="@Url.Action("Decide", "Buyer")">
+                                    Filter by: <select class="custom-select" id="inputGroupSelect02" name="Filter" onchange="this.form.submit();" onload="return select(@Model.Filter);">
+                                        <option value="Name">Name</option>
+                                        <option value="Price" selected>Price</option>
+                                    </select>
+                                </form>
+                            </div>
+                        }
+                        <div id="product-block">
+
+                            <h5 style="text-align: center">@Model.SearchMsg</h5>
+
+                            @if (Model.Products != null)
+                            {
+                                foreach (var product in Model.Products)
+                                {
+                                    <div id="product">
+                                        <div>
+                                            <div>
+                                                <div style="float: left">
+                                                    <img src="s" />
+                                                </div>
+                                                <div style="float: right ; width:130px; height: 80px; text-overflow: clip">
+                                                    <b>Name:</b> @product.PName<br />
+                                                    <b>Price:</b> @product.Price Tk.<br />
+                                                    <b>Stock-In:</b> @product.Qty
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <br />
+                                                <form action="/Buyer/AddToCart/@product.PID" method="post">
+                                                    Qty: <input type="number" id="Qty" name="Qty" onkeypress="return event.charCode >= 48" min="1" value="1" max="100" style="width: 100px">
+
+                                                    <br />
+                                                    <input type="submit" value="Add to cart" class="btn btn-success" style="width: 100%; margin-left: 5px; margin-top: 15px" />
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

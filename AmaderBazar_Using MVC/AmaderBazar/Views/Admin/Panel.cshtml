@@ -1,0 +1,82 @@
+﻿@model AmaderBazar.BusinessModel.ControlPanel
+
+@{
+    ViewBag.Title = "Panel";
+}
+
+<center style="font-family: Cambria">
+    <h2><b>Control Panel</b></h2>
+</center>
+<div>
+
+    <hr />
+    <form action="/Admin/Panel" method="post">
+        <table class="table table-bordered" style="font-family:Cambria">
+
+            <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>User</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            @foreach (var item in ViewBag.userDetails)
+            {
+                <tr>
+                    <td>@item.UID</td>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>@item.Contact</td>
+                    <td>@item.AccType</td>
+                    <td>@item.AccStatus</td>
+                    <td>
+                        @if (item.AccStatus == "Active" && item.AccType != "Admin")
+                        {
+                            <div class="form-group" hidden="hidden">
+                                <input autocomplete="off" class="form-control valid" data-val="true" value="@item.UID" id="@item.ID" name="" type="text" />
+                                <input class="form-control text-box single-line" id="@item.UID" name="" type="text" value="Blocked" />
+                            </div>
+                            <input type="submit" class="btn btn-block btn-danger"  name="@item.ID" value="Block" onmouseover="assignUID(this)" onmouseout="removeUID(this)">
+                            
+                        }
+                        else if (item.AccStatus == "Blocked" && item.AccType != "Admin")
+                        {
+                            <div class="form-group" hidden="hidden">
+                                <input autocomplete="off" class="form-control valid" data-val="true" value="@item.UID" id="@item.ID" name="" type="text" />
+                                <input class="form-control text-box single-line" id="@item.UID" name="" type="text" value="Active" />
+                            </div>
+                            <input type="submit" class="btn btn-block btn-success" name="@item.ID" value="Unblock" onmouseover="assignUID(this)" onmouseout="removeUID(this)">
+                            
+                        }
+                        else if (item.AccStatus == "Pending" && item.AccType != "Admin")
+                        {
+                            <div class="form-group" hidden="hidden">
+                                <input autocomplete="off" class="form-control valid" data-val="true" value="@item.UID" id="@item.ID" name="" type="text" />
+                                <input class="form-control text-box single-line" id="@item.UID" name="" type="text" value="Active">
+                            </div>
+                            <input type="submit" class="btn btn-block btn-primary" name="@item.ID" value="Approve" onmouseover="assignUID(this)" onmouseout="removeUID(this)">
+                            
+                        }
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </form>
+</div>
+<script>
+    function assignUID(x) {
+        document.getElementById(x.name).name = "UID";
+        var y = document.getElementById(x.name).value;
+        document.getElementById(y).name = "AccStatus";
+    }
+
+    function removeUID(x) {
+        document.getElementById(x.name).name = "";
+        var y = document.getElementById(x.name).value;
+        document.getElementById(y).name = "";
+    }
+</script>
+

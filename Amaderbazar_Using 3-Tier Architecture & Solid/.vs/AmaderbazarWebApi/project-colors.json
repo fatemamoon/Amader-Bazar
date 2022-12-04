@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "784a98e0-e026-45b3-b19b-1775f5a4e47e": {
+      "ProjectGuid": "784a98e0-e026-45b3-b19b-1775f5a4e47e",
+      "DisplayName": "AmaderbazarWebApi",
+      "ColorIndex": 0
+    },
+    "f0596eff-94e7-4ee0-92e6-382123c60961": {
+      "ProjectGuid": "f0596eff-94e7-4ee0-92e6-382123c60961",
+      "DisplayName": "DAL",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

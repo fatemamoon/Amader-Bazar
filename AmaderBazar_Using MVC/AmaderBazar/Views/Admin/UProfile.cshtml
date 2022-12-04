@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+}
+<center style="font-family: Cambria">
+    <h2><b>@ViewBag.UserDetails.AccType Profile</b></h2>
+</center>   
+<div>
+    
+    <hr />
+    <table class="table table-bordered" style="font-family:Cambria">
+
+        <tr>
+            <th>User ID</th>
+            <td>@ViewBag.UserDetails.UID</td>
+        </tr>
+
+        <tr>
+            <th>Name</th>
+            <td>@ViewBag.UserDetails.Name</td>
+        </tr>
+
+        <tr>
+            <th>Email</th>
+            <td>@ViewBag.UserDetails.Email</td>
+        </tr>
+
+        <tr>
+            <th>Address</th>
+            <td>@ViewBag.UserDetails.Address</td>
+        </tr>
+
+        <tr>
+            <th>Contact</th>
+            <td>@ViewBag.UserDetails.Contact</td>
+        </tr>
+
+        <tr>
+            <th>Status</th>
+            <td>@ViewBag.UserDetails.AccStatus</td>
+        </tr>
+    </table>
+    <center><a href="/Admin/EditProfile" class="btn btn-block btn-primary" style="inline-size: 100px">Edit Profile</a></center>
+</div>

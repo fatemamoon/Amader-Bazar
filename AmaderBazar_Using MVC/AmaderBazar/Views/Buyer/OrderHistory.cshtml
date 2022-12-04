@@ -1,0 +1,140 @@
+﻿@model AmaderBazar.Models.TransactionBind
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>OrderHistory</title>
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home/About">AmaderBazar</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Buyer/Home">Home</a></li>
+                    <li><a href="/Buyer/Cart">My Cart</a></li>
+                    <li><a href="/Buyer/OrderHistory">Order History</a></li>
+                    <li><a href="/Buyer/UProfile">Profile</a></li>
+                    <li><a href="/Home/Logout">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center"><h3><b>Order History</b></h3></div><hr />
+    <div>
+        <div>
+            <h4 style="color: orangered; text-align: center"><b>***In Processing Orders***</b></h4>
+            <div style="max-height: 300px; overflow-y: scroll; border: 2px solid orangered ">
+                <table class="table table-striped">
+                    <tr style="background-color: orangered; color: white">
+                        <th>#</th>
+                        <th>Detials</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th></th>
+                    </tr>
+                    @if (Model != null)
+                    {
+                        for (int i = 0; i < Model.Transactions.Count(); i++)
+                        {
+                            if (Model.Transactions[i].Status == "In Processing")
+                            {
+                                <tr>
+                                    <td>#</td>
+                                    <td style="max-width: 150px; max-height: 50px; overflow-y: scroll">@Model.Detials[i].ItemDetials </td>
+                                    <td>@Model.Transactions[i].TAmount TK</td>
+                                    <td>@Model.Transactions[i].Status</td>
+                                    <td>@Model.Transactions[i].TDate</td>
+                                    <td>
+                                        <a href="/Buyer/CancelTransaction/@Model.Transactions[i].TID" class="btn btn-danger">Cancel Order</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+
+        <hr />
+
+        <div>
+            <h4 style="color: forestgreen; text-align: center"><b>***Delivered Orders***</b></h4>
+            <div style="max-height: 300px; overflow-y: scroll; border: 2px solid forestgreen ">
+                <table class="table table-striped">
+                    <tr style="background-color: forestgreen; color: white">
+                        <th>#</th>
+                        <th>Detials</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                    @if (Model != null)
+                    {
+                        for (int i = 0; i < Model.Transactions.Count(); i++)
+                        {
+                            if (Model.Transactions[i].Status == "Delivered")
+                            {
+                                <tr>
+                                    <td>#</td>
+                                    <td style="max-width: 150px; max-height: 50px; overflow-y: scroll">@Model.Detials[i].ItemDetials </td>
+                                    <td>@Model.Transactions[i].TAmount TK</td>
+                                    <td>@Model.Transactions[i].Status</td>
+                                    <td>@Model.Transactions[i].TDate</td>
+                                </tr>
+                            }
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+
+        <hr />
+
+        <div>
+            <h4 style="color: rebeccapurple; text-align: center;"><b>***Canceled Orders***</b></h4>
+            <div style="max-height: 300px; overflow-y: scroll; border: 2px solid rebeccapurple">
+                <table class="table table-striped">
+                    <tr style="background-color: rebeccapurple; color: white">
+                        <th>#</th>
+                        <th>Detials</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                    @if (Model != null)
+                    {
+                        for (int i = 0; i < Model.Transactions.Count(); i++)
+                        {
+                            if (Model.Transactions[i].Status == "Canceled")
+                            {
+                                <tr>
+                                    <td>#</td>
+                                    <td style="max-width: 150px; max-height: 50px; overflow-y: scroll">@Model.Detials[i].ItemDetials </td>
+                                    <td>@Model.Transactions[i].TAmount TK</td>
+                                    <td>@Model.Transactions[i].Status</td>
+                                    <td>@Model.Transactions[i].TDate</td>
+                                </tr>
+                            }
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

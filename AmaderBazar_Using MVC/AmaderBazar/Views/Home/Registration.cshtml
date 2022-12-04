@@ -1,0 +1,113 @@
+﻿@model AmaderBazar.BusinessModel.RegistrationValidation
+
+@{ViewBag.Title = "Registration";}
+<div class="jumbotron">
+    <center>
+        <h2 style="font-family:Cambria;"><b>Registration</b></h2>
+        <hr style="border: 1px solid grey" />
+        <form action="/Home/Registration" method="post">
+
+            <div class="form-group">
+                <label for="accType">Choose an Account Type &nbsp; </label>
+                <select class="panel" name="AccType" id="AccType" value="">
+                    <option selected>Select</option>
+                    <option value="Buyer">Buyer</option>
+                    <option value="Delivery Man">Delivery Man</option>
+                </select>
+                <span class="field-validation-valid text-danger" data-valmsg-for="AccType" data-valmsg-replace="true"></span>
+                @Html.ValidationMessageFor(m => m.AccType, "", new { @class = "text-danger" })
+            </div>
+
+            <script>
+                var b = @ViewBag.BuyerCount;
+
+                var dm = @ViewBag.DeliveryManCount;
+
+                document.getElementById("AccType").addEventListener("change", (e) => {
+
+                    if (e.target.value === "Buyer") {
+                        document.getElementById("UID").value = `B-${b + 1}`
+                    }
+                    } else if (e.target.value === "Delivery Man") {
+                        document.getElementById("UID").value = `DM-${dm + 1}`
+                    }
+                    else {
+                        document.getElementById("UID").value = `UID`
+                    }
+
+                })
+
+            </script>
+
+            <div class="form-group">
+                <input autocomplete="off" class="form-control valid" data-val="true" value="" id="UID" name="UID" placeholder="UID" type="text"  /> <label>Use this ID to login</label>
+                <span class="field-validation-valid text-danger" data-valmsg-for="UID" data-valmsg-replace="true"></span>
+
+            </div>
+
+
+
+
+
+            <div class="form-group">
+                <input autocomplete="off" class="form-control valid" data-val="true" value="" id="Name" name="Name" placeholder="Name" type="text">
+                <span class="field-validation-valid text-danger" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <input autocomplete="off" class="form-control valid" data-val="true" value="" id="Email" name="Email" placeholder="Email" type="text">
+                <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <textarea class="form-control valid" data-val="true" value="" id="Address" name="Address" placeholder="Address" rows="3" cols="50"></textarea>
+                <span class="field-validation-valid text-danger" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <input autocomplete="off" class="form-control valid" data-val="true" value="" id="Contact" name="Contact" placeholder="Contact" type="text">
+                <span class="field-validation-valid text-danger" data-valmsg-for="Contact" data-valmsg-replace="true"></span>
+                @Html.ValidationMessageFor(m => m.Contact, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group" hidden="hidden">
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" id="AccStatus" name="AccStatus" type="text" value="" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="AccStatus" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <script>
+                document.getElementById("AccType").addEventListener("change", (e) => {
+
+                    if (e.target.value === "Buyer") {
+                        document.getElementById("AccStatus").value = `Active`
+                    }
+                    else if (e.target.value === "Delivery Man") {
+                        document.getElementById("AccStatus").value = `Pending`
+                    }
+                })
+
+            </script>
+
+            <div class="form-group">
+                <input autocomplete="off" class="form-control valid" data-val="true" value="" id="Password" name="Password" placeholder="Password" type="password">
+                <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <input autocomplete="off" class="form-control valid" data-val="true" value="" id="ConfirmPassword" name="ConfirmPassword" placeholder="Re-Type Password" type="password">
+                <span class="field-validation-valid text-danger" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+
+            <div style="inline-size: 150px">
+                <input type="submit" class="btn btn-block btn-primary" value="Register">
+            </div>
+
+        </form>
+    </center>
+</div>
